@@ -1,37 +1,30 @@
 {% load bootstrap %}
-<div class="control-group{% if field.errors %} error{% endif %}{% if field.field.required %} required{% endif %}">
-    {% if field|is_checkbox %}
-                <div class="controls">
-                    <label class="checkbox">
-                        {{ field }} <span>{{ field.label }}</span>
-                    </label>
+<div class="clearfix">
+    <div class="control-group{% if field.errors %} error{% endif %}{% if field.field.required %} required{% endif %}">
+        {% if field|is_checkbox %}
+        <div class="controls">
+            <label class="checkbox">{{ field }} <span>{{ field.label }}</span></label>
 
-                    {% for error in field.errors %}
-                        <span class="help-inline">{{ error }}</span>
-                    {% endfor %}
+            {% if field.errors %}
+            <span class='help-inline control-group error'>{{ field.errors|join:'<br />' }}</span>
+            {% endif %}
 
-                    {% if field.help_text %}
-                    <p class="help-block">
-                        {{ field.help_text|safe }}
-                    </p>
-                    {% endif %}
-                </div>
-    {% else %}
+            {% if field.help_text %}
+            <span class="help-block">{{ field.help_text|safe }}</span>
+            {% endif %}
+        </div>
+	{% else %}
         <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
-
         <div class="controls">
             {{ field }}
 
-            {% for error in field.errors %}
-                <span class="help-inline">{{ error }}</span>
-            {% endfor %}
-
-            {% if field.help_text %}
-            <p class="help-block">
-                {{ field.help_text|safe }}
-            </p>
+            {% if field.errors %}
+            <span class='help-inline control-group error'>{{ field.errors|join:'<br />' }}</span>
             {% endif %}
 
+            {% if field.help_text %}
+            <span class="help-block">{{ field.help_text|safe }}</span>
+            {% endif %}
         </div>
-    {% endif %}
+	{% endif %}
 </div>
